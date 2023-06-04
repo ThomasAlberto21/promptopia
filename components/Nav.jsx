@@ -4,10 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { set } from 'mongoose';
 
 const Nav = () => {
  const isUserLoggedIn = true;
  const [providers, setProviders] = useState(null);
+ const [toggleDropDown, setToggleDropDown] = useState(false);
  useEffect(() => {
   const setProviders = async () => {
    const response = await getProviders();
@@ -79,8 +81,38 @@ const Nav = () => {
        width={37}
        height={37}
        className='rounded-full'
-       onClick={() => {}}
+       onClick={() => setToggleDropDown((prev) => !prev)}
       />
+
+      {toggleDropDown && (
+       <div className='dropdown'>
+        <Link
+         href='/profile'
+         className='dropdown_link'
+         onClick={() => setToggleDropDown(false)}
+        >
+         My Profile
+        </Link>
+        <Link
+         href='/create-prompt'
+         className='dropdown_link'
+         onClick={() => setToggleDropDown(false)}
+        >
+         Create Prompt
+        </Link>
+
+        <button
+         type='button'
+         onClick={() => {
+          setToggleDropDown(false);
+          signOut();
+         }}
+         className='w-full mt-5 black_btn'
+        >
+         Sign Out
+        </button>
+       </div>
+      )}
      </div>
     ) : (
      <>
