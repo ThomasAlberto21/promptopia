@@ -15,7 +15,7 @@ const Nav = () => {
    const response = await getProviders();
    setProviders(response);
   };
-  
+
   setProviders();
  }, []);
 
@@ -32,7 +32,6 @@ const Nav = () => {
     <p className='logo_text'>Promptopia</p>
    </Link>
 
-   {/* Mobile Navigation */}
    <div className='hidden sm:flex '>
     {isUserLoggedIn ? (
      <div className='flex gap-3 md:gap-5'>
